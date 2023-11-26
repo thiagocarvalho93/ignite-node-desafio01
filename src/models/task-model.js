@@ -21,6 +21,10 @@ export class TaskModel {
     });
   }
 
+  static parse(obj) {
+    return new TaskModel(obj);
+  }
+
   update(title, description) {
     this.title = title;
     this.description = description;
@@ -46,6 +50,6 @@ export class TaskModel {
 
   complete() {
     this.completed_at = Date.now();
-    this.update();
+    this.updated_at = Date.now();
   }
 }

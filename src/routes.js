@@ -52,7 +52,7 @@ export const routes = [
       }
 
       const { title, description } = req.body;
-      let task = new TaskModel(taskDb);
+      let task = TaskModel.parse(taskDb);
       task.update(title, description);
 
       if (!task.isValid()) {
@@ -95,9 +95,9 @@ export const routes = [
         return res.writeHead(404).end();
       }
 
-      let task = new TaskModel(taskDb);
+      let task = TaskModel.parse(taskDb);
       task.complete();
-      
+
       database.update("tasks", id, task);
 
       return res.writeHead(204).end();
