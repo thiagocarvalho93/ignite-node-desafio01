@@ -19,8 +19,7 @@ export const routes = [
           errors: task.getValidationErrors(),
         });
 
-        res.writeHead(400).write(errorMessages);
-        return res.end();
+        return res.writeHead(400).end(errorMessages);
       }
 
       database.insert("tasks", task);
@@ -47,6 +46,7 @@ export const routes = [
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) => {
       if (!req.body) return res.writeHead(415).end();
+      
       const { title, description } = req.body;
       const { id } = req.params;
 
@@ -57,8 +57,7 @@ export const routes = [
           errors: [`Task ${id} not found.`],
         });
 
-        res.writeHead(404).write(errorMessages);
-        return res.end();
+        return res.writeHead(400).end(errorMessages);
       }
 
       let task = TaskModel.parse(taskDb);
@@ -69,8 +68,7 @@ export const routes = [
           errors: task.getValidationErrors(),
         });
 
-        res.writeHead(400).write(errorMessages);
-        return res.end();
+        return res.writeHead(400).end(errorMessages);
       }
 
       database.update("tasks", id, task);
@@ -91,8 +89,7 @@ export const routes = [
           errors: [`Task ${id} not found.`],
         });
 
-        res.writeHead(404).write(errorMessages);
-        return res.end();
+        return res.writeHead(404).end(errorMessages);
       }
 
       database.delete("tasks", id);
@@ -113,8 +110,7 @@ export const routes = [
           errors: [`Task ${id} not found.`],
         });
 
-        res.writeHead(404).write(errorMessages);
-        return res.end();
+        return res.writeHead(404).end(errorMessages);
       }
 
       let task = TaskModel.parse(taskDb);
