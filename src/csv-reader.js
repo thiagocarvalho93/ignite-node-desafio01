@@ -14,7 +14,9 @@ const postData = async (title, description) => {
       description,
     }),
   });
-  console.log(response.status ? "Salvo com sucesso!" : "Erro ao salvar.");
+  console.log(
+    response.status === 201 ? "Saved succesfully." : `Error while saving: ${response.status}`
+  );
 };
 
 const processFile = async () => {
@@ -27,4 +29,4 @@ const processFile = async () => {
   }
 };
 
-await processFile();
+processFile();
