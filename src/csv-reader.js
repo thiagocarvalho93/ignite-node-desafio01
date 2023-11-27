@@ -6,17 +6,15 @@ const filePath = new URL("file.csv", import.meta.url);
 const postData = async (title, description) => {
   const response = await fetch("http://localhost:3333/tasks", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      description,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, description }),
   });
-  console.log(
-    response.status === 201 ? "Saved succesfully." : `Error while saving: ${response.status}`
-  );
+
+  if (response.status === 201) {
+    console.log("Created succesfully.");
+  } else {
+    console.log("Error while creating.");
+  }
 };
 
 const processFile = async () => {
