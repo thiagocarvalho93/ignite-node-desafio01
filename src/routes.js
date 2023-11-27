@@ -1,5 +1,4 @@
 import { Database } from "./database.js";
-import { randomUUID } from "node:crypto";
 import { buildRoutePath } from "./utils/build-route-path.js";
 import { TaskModel } from "./models/task-model.js";
 
@@ -11,6 +10,8 @@ export const routes = [
     method: "POST",
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
+      if (!req.body) return res.writeHead(415).end();
+
       const { description, title } = req.body;
       const task = TaskModel.create(description, title);
 
@@ -50,6 +51,8 @@ export const routes = [
       if (!taskDb) {
         return res.writeHead(404).end();
       }
+
+      if (!req.body) return res.writeHead(415).end();
 
       const { title, description } = req.body;
       let task = TaskModel.parse(taskDb);
